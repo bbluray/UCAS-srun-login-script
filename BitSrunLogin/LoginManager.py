@@ -16,7 +16,7 @@ header={
 		
 class LoginManager:
 	def __init__(self,
-		url_login_page = "http://124.16.81.61/srun_portal_success?ac_id=1&theme=pro",
+		url_login_page = "http://124.16.81.61/srun_portal_pc?ac_id=1&theme=pro",
 		url_get_challenge_api = "http://124.16.81.61/cgi-bin/get_challenge",
 		url_login_api = "http://124.16.81.61/cgi-bin/srun_portal",
 		n = "200",
