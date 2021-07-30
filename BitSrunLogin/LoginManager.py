@@ -16,9 +16,9 @@ header={
 		
 class LoginManager:
 	def __init__(self,
-		url_login_page = "http://10.0.0.55/srun_portal_pc?ac_id=8&theme=bit",
-		url_get_challenge_api = "http://10.0.0.55/cgi-bin/get_challenge",
-		url_login_api = "http://10.0.0.55/cgi-bin/srun_portal",
+		url_login_page = "http://124.16.81.61/srun_portal_success?ac_id=1&theme=pro",
+		url_get_challenge_api = "http://124.16.81.61/cgi-bin/get_challenge",
+		url_login_api = "http://124.16.81.61/cgi-bin/srun_portal",
 		n = "200",
 		vtype = "1",
 		acid = "1",
@@ -35,11 +35,14 @@ class LoginManager:
 		self.ac_id = acid
 		self.enc = enc
 
-	def login(self, username, password):
+	def login(self, username, password, ip=""):
 		self.username = username
 		self.password = password
-
-		self.get_ip()
+		
+		if ip == "":
+			self.get_ip()
+		else:
+			self.ip = ip
 		self.get_token()
 		self.get_login_responce()
 
@@ -89,7 +92,7 @@ class LoginManager:
 		errorinfo = "Failed to resolve IP"
 	)
 	def _resolve_ip_from_login_page(self):
-		self.ip = re.search('id="user_ip" value="(.*?)"', self._page_response.text).group(1)
+		self.ip = re.search('ip     : "(.*?)"', self._page_response.text).group(1)
 
 	@checkip
 	@infomanage(
