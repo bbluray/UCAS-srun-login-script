@@ -25,6 +25,8 @@ login.py后面跟参数使用，分别是`账号`，`密码`，`远程ip`：
 ``` bash
 python login.py [account] [password] [ip]
 ```
+https://auth.dothings.top:5009/UCAS_auth/
+一个web版的登陆器(仅限NIPC内部测试使用)
 
 always_online.py可采用`nohup`命令挂在后台：
 ``` bash
