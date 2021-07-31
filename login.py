@@ -1,11 +1,17 @@
 from BitSrunLogin.LoginManager import LoginManager
 import sys
-print(sys.argv)
 
 lm = LoginManager()
-#NAS
-lm.login(
+if(len(sys.argv)<3 or len(sys.argv)>4):
+    print("argv len err")
+if(len(sys.argv)==3):
+    lm.login(
     username = sys.argv[1],
     password = sys.argv[2],
-    ip = sys.argv[3]
-)
+    )
+if(len(sys.argv)==4):
+    lm.login(
+        username = sys.argv[1],
+        password = sys.argv[2],
+        ip = sys.argv[3]
+    )
