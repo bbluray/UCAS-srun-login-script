@@ -4,6 +4,10 @@ fork自：https://github.com/coffeehat/BIT-srun-login-script
 
 从此想给谁登录就给谁登录，再也不用担心没有界面了\≥▽≤/~
 
+https://auth.dothings.top:5009/UCAS_auth/
+
+部署了一个web版的登陆器(仅限NIPC内部测试使用)
+
 # 概述
 
 国科大深澜校园网登录python脚本，可用于支持python的网络设备，给任意校园网内的设备登录上网账号。
@@ -25,8 +29,6 @@ login.py后面跟参数使用，分别是`账号`，`密码`，`远程ip`：
 ``` bash
 python login.py [account] [password] [ip]
 ```
-https://auth.dothings.top:5009/UCAS_auth/
-一个web版的登陆器(仅限NIPC内部测试使用)
 
 always_online.py可采用`nohup`命令挂在后台：
 ``` bash
