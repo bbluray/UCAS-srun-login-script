@@ -1,3 +1,4 @@
+from cmath import log
 import requests
 import time
 import re
@@ -34,6 +35,21 @@ class LoginManager:
 		self.vtype = vtype
 		self.ac_id = acid
 		self.enc = enc
+	
+	def logout(self, ip=""):
+		if ip == "":
+			self.get_ip()
+		else:
+			self.ip = ip
+		logout_info_params = {
+			"callback": "jsonp1583251661367", # This value can be any string, but cannot be absent
+			"action": "logout",
+			"ip": self.ip
+		}
+		
+		self._challenge_response = requests.get(self.url_login_api, params=logout_info_params, headers=header)
+		print(self._challenge_response.text)
+
 
 	def login(self, username, password, ip=""):
 		self.username = username
