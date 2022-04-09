@@ -3,12 +3,6 @@ fork自：https://github.com/coffeehat/BIT-srun-login-script
 增加了登出
 增加了远程登录的功能（只需要知道对方的IP就可以）。
 
-从此想给谁登录就给谁登录，再也不用担心没有界面了\≥▽≤/~
-
-https://auth.dothings.top:5009/UCAS_auth/
-
-部署了一个web版的登陆器(仅限NIPC内部测试使用)
-
 # 概述
 
 国科大深澜校园网登录python脚本，可用于支持python的网络设备，给任意校园网内的设备登录上网账号。
