@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UCAS srun autologin</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="form-container">
+      <form id="dataForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username"><br>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password"><br>
+
+        <label for="ip_addr">IP Address:</label>
+        <input type="text" id="ip_addr" name="ip_addr"><br>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div class="log-window">
+      <h2>Log Window</h2>
+      <div id="log"></div>
+    </div>
+  </div>
+
+  <script src="/static/client.js"></script>
+</body>
+
+</html>
