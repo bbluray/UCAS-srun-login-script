@@ -74,11 +74,11 @@ class LoginManager:
         print("----------------")
 
     def get_login_responce(self):
-        print("Step3: Loggin and resolve response.")
+        print("Step3: login and resolve response.")
         self._generate_encrypted_login_info()
         self._send_login_info()
         self._resolve_login_responce()
-        print("The loggin result is: " + self._login_result)
+        print("The login result is: " + self._login_result)
         print("----------------")
 
     def _is_defined(self, varname):
