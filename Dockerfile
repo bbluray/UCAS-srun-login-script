@@ -8,7 +8,7 @@ WORKDIR /work
 RUN apt-get update && apt-get install -y supervisor
 
 # Install the `requests` package using pip
-RUN pip install requests
+RUN pip install requests Flask
 
 # Copy the files from the local directory to the /work directory in the container
 COPY . /work
@@ -16,6 +16,8 @@ COPY . /work
 # Supervisor configuration
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+# Expose port 80
+EXPOSE 80
+
 # Run Supervisor when the container starts
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-
