@@ -13,18 +13,33 @@ body {
 }
 
 .container {
-    width: 30%;
-    /* Adjust this to control the width of both windows */
-    margin-top: 20px;
+    min-width: 400px;  /* 设置最小宽度 */
+    max-width: 600px;  /* 设置最大宽度 */
+    width: 100%;  /* 设置宽度为100%，但是不会超过max-width或小于min-width */
+    margin: 0 auto;  /* 水平居中 */
+    margin-top: 60px;
 }
 
-.form-container,
-.log-window {
+.form-container {
     background-color: white;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
+}
+
+.log-window {
+    font-family: monospace, 'Courier New';  /* 设置等宽字体 */
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    height: 100%;
+}
+
+.log-window h2 {
+    font-family: Arial, sans-serif;  /* 设置非等宽字体 */
 }
 
 label {
@@ -52,11 +67,18 @@ button:hover {
     background-color: #0056b3;
 }
 
-.log-window {
-    max-height: 300px;
-    overflow-y: auto;
-}
-
 #log {
     white-space: pre-wrap;
+}
+
+.input-group {
+    display: flex;
+}
+
+.input-group label {
+    flex: 0 0 20%;  /* 不增长，不缩小，基础宽度为20% */
+}
+
+.input-group input {
+    flex: 1;  /* 增长以占据剩余空间，不缩小，基础宽度为0 */
 }
