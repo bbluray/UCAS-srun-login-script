@@ -39,9 +39,9 @@ def find_interface_in_network(network_address="124.16.70.0/23"):
     if os_type == "Windows":
         # 解析 'ipconfig' 输出
         for line in result.stdout.splitlines():
-            if "Adapter" in line:
+            if "适配器" in line:
                 current_interface = line.split(":")[0].strip()
-            elif 'IPv4 Address' in line:
+            elif 'IPv4 地址' in line:
                 ip_addr = line.split(":")[1].strip()
                 if ipaddress.ip_address(ip_addr) in network:
                     interfaces[current_interface] = ip_addr
