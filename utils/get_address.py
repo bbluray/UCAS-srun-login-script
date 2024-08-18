@@ -1,5 +1,6 @@
 import subprocess
 import ipaddress
+import platform
 
 
 def find_interface_in_network(network_address="124.16.70.0/23"):
@@ -15,24 +16,47 @@ def find_interface_in_network(network_address="124.16.70.0/23"):
     # 创建网络对象
     network = ipaddress.ip_network(network_address)
 
-    # 使用 'ip addr' 命令获取所有接口的 IP 配置
-    result = subprocess.run(['ip', 'addr'], stdout=subprocess.PIPE, text=True)
+    # 检查操作系统
+    os_type = platform.system()
+    if os_type == "Windows":
+        cmd = ['ipconfig']
+    elif os_type == "Darwin":
+        return
+    elif os_type == "Linux":
+        cmd = ['ip', 'addr']
+    else:
+        print("system not support")
+        return
+
+    # 执行命令
+    result = subprocess.run(cmd, stdout=subprocess.PIPE, text=True, shell=True)
 
     # 初始化变量
-    current_interface = None
     interfaces = {}
+    current_interface = None
 
-    # 解析 'ip addr' 命令的输出
-    for line in result.stdout.splitlines():
-        if line.startswith(' '):
-            if 'inet ' in line:
-                ip_info = line.split()
-                ip_addr = ip_info[1].split('/')[0]
+    # 根据操作系统解析命令输出
+    if os_type == "Windows":
+        # 解析 'ipconfig' 输出
+        for line in result.stdout.splitlines():
+            if "Adapter" in line:
+                current_interface = line.split(":")[0].strip()
+            elif 'IPv4 Address' in line:
+                ip_addr = line.split(":")[1].strip()
                 if ipaddress.ip_address(ip_addr) in network:
                     interfaces[current_interface] = ip_addr
-        else:
-            if line:
-                current_interface = line.split(': ')[1].split('@')[0]
+    elif os_type == "Linux":
+        # 解析 'ip addr' 输出
+        for line in result.stdout.splitlines():
+            if line.startswith(' '):
+                if 'inet ' in line:
+                    ip_info = line.split()
+                    ip_addr = ip_info[1].split('/')[0]
+                    if ipaddress.ip_address(ip_addr) in network:
+                        interfaces[current_interface] = ip_addr
+            else:
+                if line:
+                    current_interface = line.split(': ')[1].split('@')[0]
 
     return interfaces
 
