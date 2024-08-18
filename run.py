@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from utils.get_address import find_interface_in_network
 from BitSrunLogin.LoginManager import LoginManager
 
