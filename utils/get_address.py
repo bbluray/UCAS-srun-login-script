@@ -3,7 +3,7 @@ import ipaddress
 import platform
 
 
-def find_interface_in_network(network_address="124.16.70.0/23"):
+def find_interface_in_network(ucas_networks=["124.16.70.0/23", "124.16.111.0/24"]):
     """
         LoginManager 的 always_online.py 默认使用 SRUN 界面的返回解析作为登录地址，
         这并不符合我们的要求，因为我们希望：
@@ -11,10 +11,10 @@ def find_interface_in_network(network_address="124.16.70.0/23"):
         * 每一台机器都可以通过校园网被外网访问，尽管这有些危险
         因此，需要通过本地查询获取接口 IP 地址。
 
-        :param network_address: 校园网的网段地址，国科大学园二的地址是 `124.16.70.0/23`.
+        :param network_address: 校园网的网段地址，国科大学园二的地址是 `124.16.70.0/23` 和 `124.16.111.0/24`.
     """
     # 创建网络对象
-    network = ipaddress.ip_network(network_address)
+    networks = [ipaddress.ip_network(n) for n in ucas_networks]
 
     # 检查操作系统
     os_type = platform.system()
@@ -23,14 +23,13 @@ def find_interface_in_network(network_address="124.16.70.0/23"):
     elif os_type == "Darwin":
         return
     elif os_type == "Linux":
-        cmd = ['ip', 'addr']
+        cmd = ['ip', 'address']
     else:
         print("system not support")
         return
 
     # 执行命令
-    result = subprocess.run(cmd, stdout=subprocess.PIPE, text=True, shell=True)
-
+    result = subprocess.run(cmd, stdout=subprocess.PIPE, text=True)
     # 初始化变量
     interfaces = {}
     current_interface = None
@@ -43,8 +42,9 @@ def find_interface_in_network(network_address="124.16.70.0/23"):
                 current_interface = line.split(":")[0].strip()
             elif 'IPv4 地址' in line:
                 ip_addr = line.split(":")[1].strip()
-                if ipaddress.ip_address(ip_addr) in network:
-                    interfaces[current_interface] = ip_addr
+                for n in networks:
+                    if ipaddress.ip_address(ip_addr) in n:
+                        interfaces[current_interface] = ip_addr
     elif os_type == "Linux":
         # 解析 'ip addr' 输出
         for line in result.stdout.splitlines():
@@ -52,8 +52,9 @@ def find_interface_in_network(network_address="124.16.70.0/23"):
                 if 'inet ' in line:
                     ip_info = line.split()
                     ip_addr = ip_info[1].split('/')[0]
-                    if ipaddress.ip_address(ip_addr) in network:
-                        interfaces[current_interface] = ip_addr
+                    for n in networks:
+                        if ipaddress.ip_address(ip_addr) in n:
+                            interfaces[current_interface] = ip_addr
             else:
                 if line:
                     current_interface = line.split(': ')[1].split('@')[0]
