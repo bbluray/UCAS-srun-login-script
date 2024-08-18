@@ -6,8 +6,8 @@ sudo git clone https://github.com/LittleNewton/UCAS-srun-login-script.git ${TARG
 sudo chmod +x ${TARGET}/run.py
 
 # 拷贝 systemd 服务和定时器配置文件
-sudo cp ${TARGET}/systemd/ucas-login.service /etc/systemd/system/
-sudo cp ${TARGET}/systemd/ucas-login.timer /etc/systemd/system/
+sudo cp ${TARGET}/utils/linux_systemd/ucas-login.service /etc/systemd/system/
+sudo cp ${TARGET}/utils/linux_systemd/ucas-login.timer /etc/systemd/system/
 
 # 重载服务
 sudo systemctl daemon-reload
