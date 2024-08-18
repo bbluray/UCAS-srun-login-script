@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/home/newton/bin/miniconda3/bin/python
 
 from utils.get_address import find_interface_in_network
 from BitSrunLogin.LoginManager import LoginManager
