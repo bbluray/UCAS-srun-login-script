@@ -1,7 +1,7 @@
 import subprocess
 import ipaddress
 import logging
-from get_os import get_os
+from .get_os import get_os
 
 
 def parse_windows_output(stdout, networks):
