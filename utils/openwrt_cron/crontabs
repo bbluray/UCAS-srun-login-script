@@ -1,0 +1,1 @@
+* * * * * /usr/bin/python /root/UCAS-srun-login-script/run.py > /dev/null 2>&1
